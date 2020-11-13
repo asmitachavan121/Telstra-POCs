@@ -1,0 +1,18 @@
+{
+  "name": "pdf-experiments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trial.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "html-pdf": "^2.2.0",
+    "html-to-pdf-converter": "^0.3.0",
+    "nodemon": "^2.0.6",
+    "phantomjs-prebuilt": "^2.1.16"
+  }
+}
