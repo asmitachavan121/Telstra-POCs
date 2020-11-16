@@ -6,24 +6,6 @@ const puppeteer = require('puppeteer')
 const PDFMerger = require('pdf-merger-js')
 var merger = new PDFMerger()
 
-const htmlTemplate = fs.readFileSync('trial.html', 'utf-8')
-  handlebars.registerHelper('print_person', function () {
-    return this.firstname + ' ' + this.lastname
-})
-
-const firstPage = handlebars.compile(htmlTemplate)({
-    people: [
-        {
-          firstname: "Nils",
-          lastname: "Knappmeier",
-        },
-        {
-          firstname: "Yehuda",
-          lastname: "Katz",
-        },
-      ],
-})
-
 async function mergePdf (firstFileName, secondFileName) {
   merger.add(firstFileName)
   merger.add(secondFileName)
@@ -53,11 +35,39 @@ function splitOrders(orders, columnsCount) {
   return { firstPageOrders, secondPageOrders}
 }
 
-const orders = JSON.parse(fs.readFileSync('orders.json', 'utf-8'))
-const { firstPageOrders, secondPageOrders } = splitOrders(orders, 7)
+const totalOrders = JSON.parse(fs.readFileSync('orders.json', 'utf-8'))
+const { firstPageOrders, secondPageOrders } = splitOrders(totalOrders, 7)
 console.log('first page orders = ', firstPageOrders)
 console.log('second page orders = ', secondPageOrders)
 
+const fields = {
+  Number: 'Number',
+  'Secondary reference': 'Secondary reference',
+  Name: 'Name',
+  Location: 'Location',
+  Status: 'Status',
+  'Sites Complete': 'Sites Complete',
+  Estimated: 'Estimated',
+  Completed: 'Completed'
+}
+const currentDate = '11/12/2020'
+const cidn = '123456'
+const companyName = 'Delhi Capitals'
+const htmlTemplate = fs.readFileSync('pdf-download-template.html', 'utf-8')
+handlebars.registerHelper('ifeq', function(a, b, options) {
+  if (a == b) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+const orders = firstPageOrders
+const firstPage = handlebars.compile(htmlTemplate)({
+  orders,
+  fields,
+  currentDate,
+  cidn,
+  companyName,
+});
 
 async function createPdf () {
   try {
