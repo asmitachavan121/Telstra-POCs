@@ -1,44 +1,43 @@
-<div id="pageHeader" class="pageHeader" style="margin: 0; padding: 0;">
-    <div style="height: 3px;padding:0px;line-height: 3px;width: 100%;background-color: #D8D8D8;margin:-9px -50px 0px -10px;"><img src="{{borderTop}}" /></div>
-    <div style="margin-top:15px;font-family:Helvetica, sans-serif;color:#414141;font-size: 10px;width: 97%;padding: 0px 10px;">
-        <div style="display: block;">
-            <div style="float: left;"><img src="{{logo}}" alt="Telstra" /></div>
-            <div style="padding-top:15px;vertical-align: middle;float: right;">Downloaded
-            {{ currentDate }}</div>
-        </div>
-        <div style="clear: both;"></div>
-        <div style="font-size: 20px;font-weight: bold;margin-top:25px">Your orders summary</div>
-        <div style="margin-top: 13px;font-weight: bold;">{{companyName}}</div>
-        <div style="margin-top: 2px;margin-bottom:12px;position: relative;">{{cidn}}</div>
-        <div style="position: absolute; height:32px;top:150px;width: 96%;background-color: #E6E6E6;">
-        <div style="height:32px;margin-top: 0px;padding-top: 4px;">
-            {{#each fields as | field |}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="pageContent" style="height: 100%; vertical-align: middle;padding: 50px 10px; 
+        font-family: Helvetica, sans-serif;color:#414141;font-size: 9px;width: 96%;position: absolute; top:0px">
+        <div style="padding-top:1px;">
+            {{#each orders as | order | }}
+            <div style="height:34.65px;">
+            {{#each ../fields as | field | }}
             {{#ifeq field 'Number'}}
-            {{#if (lookup ../fields 'Secondary reference')}}
-            <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle; background-color:navajowhite;">
+            {{#if (lookup ../../fields 'Secondary reference')}}
+            <div style="padding: 0px 4px; line-height:34.65px; width: 7%; display:inline-block;vertical-align: middle;">
             {{else}}
-            <div style="padding: 0px 4px; width: 12%; display:inline-block;vertical-align: middle;background-color:blue ;">
+            <div style="padding: 0px 4px; line-height:34.65px; width: 12%; display:inline-block;vertical-align: middle;">
             {{/if}}
             {{/ifeq}}
             {{#ifeq field 'Secondary reference'}}
-            <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;background-color:red;">
+            <div style="padding: 0px 6px; width: 7%; display:inline-block;vertical-align: middle;">
             {{/ifeq}}
             {{#ifeq field 'Name'}}
-            {{#if (lookup ../fields 'Secondary reference')}}
-            <div style="padding: 0px 4px; width: 13%; display:inline-block;vertical-align: middle; background-color:aquamarine;">
+            {{#if (lookup ../../fields 'Secondary reference')}}
+            <div style="padding: 0px 4px; width: 13%; display:inline-block;vertical-align: middle;">
             {{else}}
-            <div style="padding: 0px 4px; width: 26%; display:inline-block;vertical-align: middle;background-color:aquamarine;">
+            <div style="padding: 0px 4px; width: 26%; display:inline-block;vertical-align: middle;">
             {{/if}}
             {{/ifeq}}
             {{#ifeq field 'Location'}}
-            {{#if (lookup ../fields 'Secondary reference')}}
-            <div style="padding: 0px 4px; width: 20%; display:inline-block;vertical-align: middle;background-color:rgb(255, 0, 179);">
+            {{#if (lookup ../../fields 'Secondary reference')}}
+            <div style="padding: 0px 4px; width: 20%; display:inline-block;vertical-align: middle;">
             {{else}}
-            <div style="padding: 0px 4px; width: 25%; display:inline-block;vertical-align: middle;background-color:rgb(255, 0, 179);">
+            <div style="padding: 0px 4px; width: 25%; display:inline-block;vertical-align: middle;">
             {{/if}}
             {{/ifeq}}
             {{#ifeq field 'Status'}}
-            <div style="padding: 0px 4px; width: 5%; display:inline-block;vertical-align: middle; background-color: coral;">
+            <div style="padding: 0px 4px; width: 5%; display:inline-block;vertical-align: middle;">
             {{/ifeq}}
             {{#ifeq field 'Sites Complete'}}
             <div style="padding: 0px 4px; width: 4%; display:inline-block;vertical-align: middle;">
@@ -47,73 +46,24 @@
             <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;">
             {{/ifeq}}
             {{#ifeq field 'Completed'}}
-            <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;background-color:aquamarine;">
+            <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;background-color: aquamarine;">
             {{/ifeq}}
             {{#ifeq field 'Completed'}}
             <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;">
             {{/ifeq}}
-                {{this}}
+                {{#with (lookup order @key) as | val |}}
+                {{val}}
+                {{/with}}
             </div>
             {{/each}}
+            </div>
+            <div style="border-bottom: thin solid #D8D8D8;"></div>
+            {{/each}}
         </div>
-    </div>
-    </div>
-</div>
-<div id="pageContent" style="height: 100%; vertical-align: middle;padding: 0px 10px;
-    font-family: Helvetica, sans-serif;color:#414141;font-size: 9px;width: 96%;position: absolute; top:0px">
-    <div style="padding-top:1px;">
-        {{#each orders as | order | }}
-        <div style="height:34.65px;">
-        {{#each ../fields as | field | }}
-        {{#ifeq field 'Number'}}
-        {{#if (lookup ../../fields 'Secondary reference')}}
-        <div style="padding: 0px 4px; line-height:34.65px; width: 7%; display:inline-block;vertical-align: middle;">
-        {{else}}
-        <div style="padding: 0px 4px; line-height:34.65px; width: 12%; display:inline-block;vertical-align: middle;">
-        {{/if}}
-        {{/ifeq}}
-        {{#ifeq field 'Secondary reference'}}
-        <div style="padding: 0px 6px; width: 7%; display:inline-block;vertical-align: middle;">
-        {{/ifeq}}
-        {{#ifeq field 'Name'}}
-        {{#if (lookup ../../fields 'Secondary reference')}}
-        <div style="padding: 0px 4px; width: 13%; display:inline-block;vertical-align: middle;">
-        {{else}}
-        <div style="padding: 0px 4px; width: 26%; display:inline-block;vertical-align: middle;">
-        {{/if}}
-        {{/ifeq}}
-        {{#ifeq field 'Location'}}
-        {{#if (lookup ../../fields 'Secondary reference')}}
-        <div style="padding: 0px 4px; width: 20%; display:inline-block;vertical-align: middle;">
-        {{else}}
-        <div style="padding: 0px 4px; width: 25%; display:inline-block;vertical-align: middle;">
-        {{/if}}
-        {{/ifeq}}
-        {{#ifeq field 'Status'}}
-        <div style="padding: 0px 4px; width: 5%; display:inline-block;vertical-align: middle;">
-        {{/ifeq}}
-        {{#ifeq field 'Sites Complete'}}
-        <div style="padding: 0px 4px; width: 4%; display:inline-block;vertical-align: middle;">
-        {{/ifeq}}
-        {{#ifeq field 'Estimated'}}
-        <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;">
-        {{/ifeq}}
-        {{#ifeq field 'Completed'}}
-        <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;background-color: aquamarine;">
-        {{/ifeq}}
-        {{#ifeq field 'Completed'}}
-        <div style="padding: 0px 4px; width: 7%; display:inline-block;vertical-align: middle;">
-        {{/ifeq}}
-            {{#with (lookup order @key) as | val |}}
-            {{val}}
-            {{/with}}
-        </div>
-        {{/each}}
-        </div>
-        <div style="border-bottom: thin solid #D8D8D8;"></div>
-        {{/each}}
-    </div>
-</div>
+    </div>    
+</body>
+</html>
+
 <!-- <div id="pageFooter">
     <div style="font-family: Arial, Helvetica, sans-serif;color:#444;font-size: 9px;">
         <span style="float: right;">Page {{page}} of {{pages}}</span>
